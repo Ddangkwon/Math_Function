@@ -25,7 +25,10 @@ int main()
     {
         printf("input file read success..\n");
     }
-
+    printf("Enter first input complex value : ");
+    scanf("%f %f",&a.real, &a.imag);
+    printf("Enter second input complex value : ");
+    scanf("%f %f",&b.real, &b.imag);
     result = compCalculator(0, a, b);
     fprintf(fp, "SUM\n");
     fprintf(fp, "real : %.8f, imag : %.8f\n", result.real, result.imag);
