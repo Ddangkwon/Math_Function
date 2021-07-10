@@ -1,24 +1,24 @@
-#include "Typedef.h"
+#include "Calc_Comp.h"
 /***********************************************************************************************
  * Function Declaration
  ***********************************************************************************************/
 
-complex64_t compCalculator(uint32_t calcType, complex64_t a, complex64_t b)
+complex64_t compCalculator(uint32_t calcType, const complex64_t *a, const complex64_t *b)
 {
     complex64_t z;
     switch(calcType)
     {
         case ADD:
-            z = addComp(&a, &b);
+            z = addComp(a, b);
             break;
         case SUB:
-            z = subComp(&a, &b);
+            z = subComp(a, b);
             break;
         case MUL:
-            z = mulComp(&a, &b);
+            z = mulComp(a, b);
             break;
         case DIV:
-            z = divComp(&a, &b);
+            z = divComp(a, b);
             break;
         default:
             /* NOP */
@@ -84,16 +84,7 @@ float32_t absComp(const complex64_t *z1)
     return output;
 }
 
-float32_t degToRad(float32_t angle)
-{
-    angle = angle / 180.0 * M_PI;
-    return angle;
-}
-float32_t radToDeg(float32_t angle)
-{
-    angle = angle / M_PI * 180.0;
-    return angle;
-}
+
 
 complex64_t phaseToComp(float32_t phase)
 {

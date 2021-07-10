@@ -1,3 +1,5 @@
+SW VERSION [v.1.0.0] 
+
 SUM
 real : 4.00000000, imag : 6.00000000
 SUB

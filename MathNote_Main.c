@@ -1,6 +1,9 @@
-#include "Typedef.h"
+#include "Calc_Comp.h"
+#include "Calc_MathFunc.h"
+#include "Sort_Algo.h"
 
 
+#define SW_VERSION  "1.0.0"
 /***********************************************************************************************
  * Global Variables
  ***********************************************************************************************/
@@ -9,14 +12,30 @@ complex64_t b = {12.0, 42.0};
 complex64_t result = {0.0f, 0.0f};
 uint32_t calc_type = 3;
 byteTypeConv parseBytes;
+
+
+/***********************************************************************************************
+ * Local Functions
+ ***********************************************************************************************/
+
+static void  writeCompCalFile(FILE *fp, const complex64_t *a, const complex64_t *b, complex64_t *z);
+
+
 /***********************************************************************************************
  * Main
  ***********************************************************************************************/
 int main()
 {
-    FILE *fp;
-    fp = fopen("output_log1.txt", "w");
-    if(fp == NULL)
+    FILE *inputfp;
+    struct tm *datetime;
+    time_t t;
+    char currTime[16];
+    t = time(NULL);
+    datetime = localtime(&t);
+    strftime(currTime, 16, "%Y%m%d_%H%M%S", datetime);
+
+    inputfp = fopen("output_log.txt", "w");
+    if(inputfp == NULL)
     {
         printf("input file read fail!!\n");
         return -1;
@@ -25,23 +44,35 @@ int main()
     {
         printf("input file read success..\n");
     }
+
     printf("Enter first input complex value : ");
     scanf("%f %f",&a.real, &a.imag);
     printf("Enter second input complex value : ");
     scanf("%f %f",&b.real, &b.imag);
-    result = compCalculator(0, a, b);
-    fprintf(fp, "SUM\n");
-    fprintf(fp, "real : %.8f, imag : %.8f\n", result.real, result.imag);
-    result = compCalculator(1, a, b);
-    fprintf(fp, "SUB\n");
-    fprintf(fp, "real : %.8f, imag : %.8f\n", result.real, result.imag);
-    result = compCalculator(2, a, b);
-    fprintf(fp, "MUL\n");
-    fprintf(fp, "real : %.8f, imag : %.8f\n", result.real, result.imag);
-    result = compCalculator(3, a, b);
-    fprintf(fp, "DIV\n");
-    fprintf(fp, "real : %.8f, imag : %.8f\n", result.real, result.imag);
 
-    fclose(fp);
+   
+    writeCompCalFile(inputfp, &a, &b, &result);
     return 0;
+}
+
+
+static void writeCompCalFile(FILE *fp, const complex64_t *a, const complex64_t *b, complex64_t *z)
+{
+    fprintf(fp, "SW VERSION [v.%s] \n\n", SW_VERSION);
+    fprintf(fp, "SUM\n");
+     result = compCalculator(ADD, a, b);
+    fprintf(fp, "real : %.8f, imag : %.8f\n", z->real, z->imag);
+    
+    fprintf(fp, "SUB\n");
+    result = compCalculator(SUB, a, b);
+    fprintf(fp, "real : %.8f, imag : %.8f\n", z->real, z->imag);
+   
+    fprintf(fp, "MUL\n");
+     result = compCalculator(MUL, a, b);
+    fprintf(fp, "real : %.8f, imag : %.8f\n", z->real, z->imag);
+    
+    fprintf(fp, "DIV\n");
+    result = compCalculator(DIV, a, b);
+    fprintf(fp, "real : %.8f, imag : %.8f\n", z->real, z->imag);
+    fclose(fp);
 }
