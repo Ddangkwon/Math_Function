@@ -11,5 +11,5 @@ complex64_t conjComp(const complex64_t *z1);
 float32_t absComp(const complex64_t *z1);
 complex64_t phaseToComp(float32_t phase);
 float32_t compToPhase(complex64_t z);
-
+float32_t findMag(const complex64_t *z1);
 #endif

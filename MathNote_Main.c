@@ -12,7 +12,7 @@ complex64_t b = {12.0, 42.0};
 complex64_t result = {0.0f, 0.0f};
 uint32_t calc_type = 3;
 byteTypeConv parseBytes;
-
+float32_t arr[5] = { 0.0f };
 
 /***********************************************************************************************
  * Local Functions
@@ -44,7 +44,7 @@ int main()
     {
         printf("input file read success..\n");
     }
-
+   
     printf("Enter first input complex value : ");
     scanf("%f %f",&a.real, &a.imag);
     printf("Enter second input complex value : ");

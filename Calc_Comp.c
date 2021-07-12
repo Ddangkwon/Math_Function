@@ -100,3 +100,9 @@ float32_t compToPhase(complex64_t z)
     output = atan2(z.imag, z.real);
     return output;
 }
+
+float32_t findMag(const complex64_t *z1)
+{
+    float32_t output = sqrt((z1->real * z1->real) + (z1->imag * z1->imag));
+    return output;
+}
